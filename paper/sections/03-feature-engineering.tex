@@ -1,0 +1,9 @@
+\section{Feature engineering}
+Features are declared in \texttt{conf/features.yaml} and implemented in
+\texttt{src/recommender/features/}. User features (\texttt{user\_activity\_count},
+\texttt{user\_mean\_rating}) are fitted strictly on the training partition.
+Item features combine a training-only statistic (\texttt{item\_popularity\_rank})
+with catalogue-only descriptors (\texttt{item\_price\_tier},
+\texttt{item\_cuisine\_tokens}) that carry no label signal by construction.
+A registry check (\texttt{assert\_registry\_matches\_spec}) asserts the YAML
+specification and the Python implementation agree in both directions.

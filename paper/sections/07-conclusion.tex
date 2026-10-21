@@ -1,0 +1,10 @@
+\section{Limitations and conclusion}
+The dataset is small (138 users, 130 restaurants), so EASE\textsuperscript{R}'s
+advantage over popularity is modest; the gap is expected to widen on larger,
+denser restaurant-review corpora. The model also has no explicit cold-start
+mechanism beyond falling back to a user's available history or, for a
+first-ever visitor, the popularity floor. Future work could add a
+content-based fallback using the cuisine and price-tier features already
+collected. Overall, EASE\textsuperscript{R} offers a strong, fully
+closed-form, non-neural baseline with transparent item-item weights and
+cheap retraining.

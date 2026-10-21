@@ -1,0 +1,9 @@
+\section{Experimental protocol}
+Because the dataset has no timestamp, we use a \emph{user-aware random
+holdout}: for each user with at least $\lceil 1/(1-p)\rceil + 1$ interactions
+(where $p=0.3$ is the combined validation+test fraction), 10\% of their
+interactions are held out for validation and 20\% for test, sampled
+uniformly at random per user; all other users contribute entirely to
+training. We report NDCG@10, Recall@10, MAP@10, hit rate, and catalogue
+coverage on the test partition, and compare EASE\textsuperscript{R} against
+a non-personalised popularity baseline and a random-ranking floor.

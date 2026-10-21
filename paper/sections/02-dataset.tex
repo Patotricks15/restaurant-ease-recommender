@@ -1,0 +1,10 @@
+\section{Dataset}
+The Restaurant Consumer Ratings dataset (UCI / Kaggle ref
+\texttt{uciml/restaurant-data-with-consumer-ratings}) contains 1{,}161
+overall ratings on a 0--2 scale from 138 consumers over 130 restaurants in
+Mexico, along with restaurant metadata (cuisine, price tier, ambience).
+Ratings carry no event timestamp. Following the implicit-feedback
+convention used across this portfolio, a rating of 1 or 2 is treated as a
+positive and a rating of 0 is dropped. An iterative $k$-core filter
+($k=3$) removes users and restaurants with too little history for
+collaborative signal.

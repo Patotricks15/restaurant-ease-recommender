@@ -1,0 +1,27 @@
+\section{Methodology}
+Let $X \in \{0,1\}^{n \times m}$ be the binary user-item interaction matrix
+over $n$ training users and $m$ items. EASE\textsuperscript{R} solves
+
+\begin{equation}
+  \min_{B} \; \lVert X - XB \rVert_F^2 + \lambda \lVert B \rVert_F^2,
+  \quad \text{s.t.} \; \operatorname{diag}(B) = 0,
+  \label{eq:objective}
+\end{equation}
+
+where the zero-diagonal constraint prevents the trivial solution $B = I$.
+Writing $G = X^\top X + \lambda I$, the Lagrangian stationarity condition
+yields the closed-form solution
+
+\begin{align}
+  P &= G^{-1}, \label{eq:inverse} \\
+  B_{ij} &= \begin{cases}
+    -P_{ij} / P_{jj} & i \neq j \\
+    0 & i = j
+  \end{cases}. \label{eq:weights}
+\end{align}
+
+A user's predicted score vector is $\hat{s}_u = x_u B$, where $x_u$ is the
+user's own (possibly cold, serving-time) interaction vector: no per-user
+embedding is learned, so a user unseen at training time is scored directly
+from their observed history. The single hyperparameter $\lambda$ controls
+ridge shrinkage of the off-diagonal weights.

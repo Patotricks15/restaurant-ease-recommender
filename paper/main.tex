@@ -1,0 +1,27 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,hyperref}
+\title{Closed-Form Item-Item Recommendation with EASE\textsuperscript{R} for Restaurant Consumer Ratings}
+\author{Patrick Gomes de Oliveira}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+We apply EASE\textsuperscript{R} (Embarrassingly Shallow Autoencoder for
+Sparse Recommendation), a closed-form, ridge-regularised item-item linear
+model, to the Restaurant Consumer Ratings dataset. Because the dataset
+carries no event timestamp, evaluation uses a user-aware random holdout
+instead of a temporal split. The system includes a declarative feature
+specification, leakage tests, a popularity baseline, and reproducible
+Floci/AWS infrastructure.
+\end{abstract}
+\input{sections/01-introduction}
+\input{sections/02-dataset}
+\input{sections/03-feature-engineering}
+\input{sections/04-methodology}
+\input{sections/05-experiments}
+\input{sections/06-results}
+\input{sections/07-conclusion}
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

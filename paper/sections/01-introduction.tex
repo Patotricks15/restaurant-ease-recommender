@@ -1,0 +1,8 @@
+\section{Introduction}
+Most public restaurant-recommendation notebooks rely on cosine-similarity
+k-NN or basic SVD. This project instead implements EASE\textsuperscript{R}
+\cite{steck2019ease}, a linear autoencoder with a closed-form solution: no
+gradient descent, no iterative optimisation, and no neural network. EASE
+reconstructs each user's interaction vector as a sparse linear combination
+of their other interactions, which makes every recommendation explainable
+as ``restaurants similar to the ones you already liked.''

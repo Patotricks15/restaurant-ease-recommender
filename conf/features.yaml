@@ -1,0 +1,76 @@
+# Feature specification for restaurant-ease-recommender.
+#
+# The registry check in `recommender.features.registry` asserts this file and
+# the implementation agree in BOTH directions: a transform cannot be computed
+# without being declared, and a declaration cannot go unimplemented.
+#
+# Fields
+#   family     One of: user, item, interaction, context, text.
+#   fit_on     train_only -> statistic fitted strictly on the training split.
+#              catalogue  -> reads restaurant metadata only; no label signal.
+#   fill       Value substituted for an entity absent at serving time.
+#   rationale  Why the feature exists.
+
+version: 1
+dataset: restaurant_consumer_ratings
+
+features:
+  - name: user_activity_count
+    family: user
+    dtype: float64
+    transform: user_activity_count
+    fit_on: train_only
+    fill:
+      unknown_user: 0.0
+    rationale: >
+      Number of training-time positive ratings a user has left. Separates a
+      user with enough history for EASE^R's linear reconstruction from a
+      near-cold user who will fall back to the popularity floor.
+
+  - name: user_mean_rating
+    family: user
+    dtype: float64
+    transform: user_mean_rating
+    fit_on: train_only
+    fill:
+      unknown_user: 1.0
+    rationale: >
+      A user's average overall rating (0-2 scale) captures how generous a
+      rater they are, useful context even though EASE^R itself is trained on
+      binarized implicit feedback.
+
+  - name: item_popularity_rank
+    family: item
+    dtype: float64
+    transform: item_popularity_rank
+    fit_on: train_only
+    fill:
+      unknown_item: 1.0
+    rationale: >
+      Fraction-rank of a restaurant's training-time interaction count.
+      Used both as the cold-start fallback score and to measure popularity
+      bias in the final ranking (coverage, novelty).
+
+  - name: item_price_tier
+    family: item
+    dtype: category
+    transform: item_price_tier
+    fit_on: catalogue
+    fill:
+      unknown_item: "unknown"
+    rationale: >
+      The restaurant's declared price tier (low/medium/high) from the
+      catalogue. Read directly from metadata, never from label-derived
+      statistics, so it carries no leakage risk by construction.
+
+  - name: item_cuisine_tokens
+    family: text
+    dtype: object
+    transform: item_cuisine_tokens
+    fit_on: catalogue
+    fill:
+      unknown_item: ""
+    rationale: >
+      Tokenized cuisine labels (e.g. "Mexican", "Bar") from the restaurant
+      catalogue, kept for qualitative inspection of recommendations and for
+      a future content-based cold-start fallback.
